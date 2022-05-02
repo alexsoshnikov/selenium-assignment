@@ -1,8 +1,8 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
+package pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,19 +24,13 @@ public class BasePage {
         return this.driver.findElement(locator);
     }
 
-    protected List<WebElement> waitPresenceAndFindElements(By locator) {
+    protected List<WebElement> waitVisibilityAndFindElements(By locator) {
         this.wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return this.driver.findElements(locator);
     }
 
     protected boolean isElementExists (By locator) {
-        try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(locator));
-            return true;
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-
-            return false;
-        }
+        wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+        return this.driver.findElements(locator).size() > 0;
     }
 }

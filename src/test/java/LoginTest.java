@@ -3,6 +3,7 @@ import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.*;
 
 import java.time.Duration;
 
@@ -23,9 +24,9 @@ public class LoginTest {
 
 
     @Test
-    public void loginTest() {
-        LoginPage loginPage = new LoginPage(this.driver);
-
+    public void loginTest() throws Exception {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.acceptCookies();
         loginPage.openLoginModal();
         loginPage.setUsername("asoshnikov");
         loginPage.setPassword("d_f6P_2@NWmvxaB");
@@ -41,9 +42,24 @@ public class LoginTest {
 
 
     @Test
-    public void logoutTest() {
-        LoginPage loginPage = new LoginPage(this.driver);
+    public void errorLoginTest() throws Exception {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.acceptCookies();
+        loginPage.openLoginModal();
+        loginPage.setUsername("asoshnikov");
+        loginPage.setPassword("error_password");
+        loginPage.submitForm();
 
+        WebElement error = loginPage.getError();
+
+        assertEquals("The error should be displayed", "Incorrect username or password.", error.getText());
+    }
+
+
+    @Test
+    public void logoutTest() throws Exception {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.acceptCookies();
         loginPage.openLoginModal();
         loginPage.setUsername("asoshnikov");
         loginPage.setPassword("d_f6P_2@NWmvxaB");
