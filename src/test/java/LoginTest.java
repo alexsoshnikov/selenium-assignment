@@ -22,6 +22,15 @@ public class LoginTest {
         this.driver.get("https://www.hltv.org/");
     }
 
+    @Test
+    public void checkCookies() throws Exception {
+        LoginPage loginPage = new LoginPage(driver);
+        loginPage.resetCookies();
+        loginPage.acceptCookies();
+
+        assertTrue("Cookies should be accepted", loginPage.isCookiesAccepted());
+    }
+
 
     @Test
     public void loginTest() throws Exception {
@@ -33,9 +42,11 @@ public class LoginTest {
         loginPage.submitForm();
 
         loginPage.openHeaderPopup();
-        loginPage.goToProfilePage();
+//        loginPage.goToProfilePage();
 
         WebElement currentEmail = loginPage.getCurrentEmailElement();
+
+//        loginPage.isAuthViaCookie();
 
         assertEquals("The email must be specified on the profile page", "hh84jb@inf.elte.hu", currentEmail.getText());
     }

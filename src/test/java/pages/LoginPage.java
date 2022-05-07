@@ -22,7 +22,7 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//div[@class='navsignin']")
     private WebElement loginModalElement;
 
-    @FindBy(xpath = "//div[@class='navdown']/i[@class='fa fa-caret-down']")
+    @FindBy(css = ".fa.fa-caret-down")
     private WebElement headerPopupElement;
 
     @FindBy(xpath = "//div[@class='nav-popup-elm'][3]/a[@id='signout-link']/div[@class='a-default']")
@@ -41,6 +41,13 @@ public class LoginPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    public void resetCookies() {
+        driver.manage().deleteAllCookies();
+    }
+
+    public boolean isCookiesAccepted() {
+        return driver.manage().getCookies().size() > 0;
+    }
 
     public void acceptCookies() throws InterruptedException {
         try {
@@ -86,7 +93,7 @@ public class LoginPage extends BasePage {
             submitElement.click();
 
             //captcha
-            Thread.sleep(15000);
+//            Thread.sleep(15000);
         } catch (InterruptedException e) {
             throw new InterruptedException("An error occurred while submitting login form: " + e.getMessage());
         }
