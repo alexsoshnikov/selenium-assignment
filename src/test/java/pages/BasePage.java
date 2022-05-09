@@ -36,6 +36,7 @@ public class BasePage {
         return this.driver.findElements(locator).size() > 0;
     }
 
+
     protected void waitForPageToLoad() throws Exception {
         ExpectedCondition<Boolean> pageLoad = new
                 ExpectedCondition <Boolean> () {

@@ -1,12 +1,20 @@
 package pages;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.time.Duration;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 public class HomePage extends BasePage {
+    @FindBy(className = "navbar")
+    private WebElement logoElement;
+
     @FindBy(xpath = "//div[@class='navbar']/nav[@class='navcon']/a[@class='navforums no-promode']")
     private WebElement forumLinkElement;
 
@@ -22,10 +30,21 @@ public class HomePage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public void goToForumPage() {
-        forumLinkElement.click();
+    public boolean isPageOpen() {
+        return logoElement.isDisplayed();
     }
-    public void gotToEventsPage() { eventsLinkElement.click();}
+
+    public void goToForumPage() {
+        wait.until(ExpectedConditions.elementToBeClickable(forumLinkElement)).click();
+    }
+    public void gotToEventsPage() {
+        eventsLinkElement.click();
+    }
+
+
+    public String getPageTitle() {
+        return this.driver.getTitle();
+    }
 
 
     public boolean moveToArticleAndCheckHover(Integer idx) throws Exception {

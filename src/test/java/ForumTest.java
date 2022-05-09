@@ -26,6 +26,7 @@ public class ForumTest {
     public void forumMessageTest() throws Exception {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login();
+
         assertTrue("The user is logged in", loginPage.isAuth());
 
         HomePage homePage = new HomePage(driver);
